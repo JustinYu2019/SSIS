@@ -1,12 +1,23 @@
 package com.example.ssis;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Requisition {
+public class Requisition implements Serializable {
     private String name;  // Employee name
-    private LocalDateTime raiseDate; // date of requisition
+
+    // use datetime formatter to do it
+    private String raiseDate; // date of requisition
     private ArrayList<Item> itemList; // list of item raised
+
+    public Requisition(String name, String raiseDate, ArrayList<Item> itemList) {
+        this.name = name;
+        this.raiseDate = raiseDate;
+        this.itemList = itemList;
+    }
 
     public String getName() {
         return name;
@@ -16,11 +27,11 @@ public class Requisition {
         this.name = name;
     }
 
-    public LocalDateTime getRaiseDate() {
+    public String getRaiseDate() {
         return raiseDate;
     }
 
-    public void setRaiseDate(LocalDateTime raiseDate) {
+    public void setRaiseDate(String raiseDate) {
         this.raiseDate = raiseDate;
     }
 
@@ -31,4 +42,6 @@ public class Requisition {
     public void setItemList(ArrayList<Item> itemList) {
         this.itemList = itemList;
     }
+
+
 }
