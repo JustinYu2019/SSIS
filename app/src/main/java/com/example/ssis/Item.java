@@ -1,6 +1,8 @@
 package com.example.ssis;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     private String description;
     private int unit;
 
