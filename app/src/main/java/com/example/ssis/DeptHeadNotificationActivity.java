@@ -10,5 +10,7 @@ public class DeptHeadNotificationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dept_head_notification);
+
+        // table layout view
     }
 }

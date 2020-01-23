@@ -11,4 +11,11 @@
     <string name="ViewNotifications">View Notifications </string>
     <string name="ViewRequisition">View Requisition </string>
     <string name="Delegate">Delegate </string>
+    <string name="StationeryReq">Stationery Requisition Request</string>
+    <string name="Description">Description</string>
+    <string name="Quantity">Quantity</string>
+    <string name="Remarks">Remarks: </string>
+    <string name="RemarksHint">Please enter remarks</string>
+    <string name="Reject">Reject</string>
+    <string name="Approve">Approve</string>
 </resources>

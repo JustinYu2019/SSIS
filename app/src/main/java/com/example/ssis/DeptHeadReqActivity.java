@@ -45,19 +45,9 @@ public class DeptHeadReqActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 
                     Intent i=new Intent(DeptHeadReqActivity.this,DeptHeadReqDetailActivity.class);
-                    Requisition r=rList.get(pos); // here is tricky
-//
-//
-//                    //Toast.makeText(DeptHeadReqActivity.this,rdetail.getName(),10).show();
-                    i.putExtra("ReqDetail",r); // --> despite implement serializable, it does not work.
-//                    //startActivity(i);
-//                    startActivity(i);
-                if(pos==0){
-                    Toast.makeText(DeptHeadReqActivity.this,"First requisition"+r.getName(),Toast.LENGTH_LONG ).show();
-                }
-                if(pos==1){
-                    Toast.makeText(DeptHeadReqActivity.this,"Second requisition"+r.getName(),Toast.LENGTH_LONG ).show();
-                }
+                    Requisition r=rList.get(pos);
+                    i.putExtra("ReqDetail",r);
+                Toast.makeText(DeptHeadReqActivity.this,"Requested by: "+r.getName(),Toast.LENGTH_LONG ).show();
                 startActivity(i);
 
 
