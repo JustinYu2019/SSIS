@@ -7,18 +7,26 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class DeptHeadReqActivity extends AppCompatActivity {
-
+Button Logout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dept_head_req);
-
+        Logout=findViewById(R.id.LogoutReq);
+        Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(DeptHeadReqActivity.this,MainActivity.class);
+                startActivity(i);
+            }
+        });
         // list view of stationery requisition.
          ListView rListView=findViewById(R.id.listViewReq);
         Item i1=new Item();

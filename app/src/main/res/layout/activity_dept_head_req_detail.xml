@@ -6,19 +6,39 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".DeptHeadReqDetailActivity">
-
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
+        android:id="@+id/topRowStationery"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:paddingLeft="60sp"
-        android:text="@string/StationeryReq"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/chart_layout"
-        app:layout_constraintHeight_percent="0.05"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/employeeLayout"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="40sp"
+
+            android:text="@string/StationeryReq"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_weight="1"
+             />
+        <Button
+            android:id="@+id/LogoutReqDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:paddingLeft="20sp"
+            android:background="@color/blue"
+            android:text="@string/Logout"
+
+            />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/employeeLayout"
         android:layout_width="match_parent"
@@ -88,7 +108,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/remarksLayout"
-        app:layout_constraintHeight_percent="0.7"
+        app:layout_constraintHeight_percent="0.65"
         app:layout_constraintTop_toBottomOf="@id/textView"></LinearLayout>
 
     <LinearLayout

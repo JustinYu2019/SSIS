@@ -24,11 +24,20 @@ public class DeptHeadReqDetailActivity extends AppCompatActivity {
     ArrayList<Item> itemList;
     TextView empName;
     TextView dateRequest;
-    Button approve,reject;
+    Button approve,reject,Logout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dept_head_req_detail);
+        Logout=findViewById(R.id.LogoutReqDetail);
+        Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(DeptHeadReqDetailActivity.this,MainActivity.class);
+                startActivity(i);
+            }
+        });
+
         mChartLayout=findViewById(R.id.chart_layout);
         mTableLayout=new TableLayout(DeptHeadReqDetailActivity.this);
 
@@ -97,7 +106,7 @@ public class DeptHeadReqDetailActivity extends AppCompatActivity {
 
             TextView valueTV2= new TextView(DeptHeadReqDetailActivity.this);
             valueTV2.setTextColor(Color.BLACK);
-            valueTV2.setText("                                      "+quantity);
+            valueTV2.setText("                                                "+quantity); // adjust here if quantity do not align
             valueTV2.setLayoutParams(new TableRow.LayoutParams(
                     TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT
             ));

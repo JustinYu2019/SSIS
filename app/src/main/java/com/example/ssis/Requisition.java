@@ -13,6 +13,11 @@ public class Requisition implements Serializable {
     private String raiseDate; // date of requisition
     private ArrayList<Item> itemList; // list of item raised
 
+    public Requisition(String name,String raiseDate){
+        this.name=name;
+        this.raiseDate=raiseDate;
+        // for notification page where name and date is required only
+    }
     public Requisition(String name, String raiseDate, ArrayList<Item> itemList) {
         this.name = name;
         this.raiseDate = raiseDate;
