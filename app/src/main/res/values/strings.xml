@@ -18,4 +18,5 @@
     <string name="RemarksHint">Please enter remarks</string>
     <string name="Reject">Reject</string>
     <string name="Approve">Approve</string>
+    <string name="DelegateActingHead">Delegate Dept Acting Head</string>
 </resources>
