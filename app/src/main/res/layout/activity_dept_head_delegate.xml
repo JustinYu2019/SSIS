@@ -78,12 +78,12 @@
             <Button
                 android:id="@+id/startDateBtn"
                 android:layout_weight="1"
-                android:text="Select the start date"
+                android:text="Select start date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/textStartDate"
-                android:text="show start date"
+
                 android:layout_weight="1"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
@@ -114,7 +114,7 @@
             <TextView
                 android:id="@+id/textEndDate"
                 android:layout_weight="1"
-                android:text="Show end date"
+
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -159,7 +159,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/Reject"
+                android:id="@+id/RejectDele"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -169,14 +169,14 @@
                 android:text="Reject" />
 
             <Button
-                android:id="@+id/Approve"
+                android:id="@+id/ApproveDele"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
 
                 android:background="@color/green"
                 android:textColor="@color/white"
-                android:text="Approve" />
+                android:text="Assign" />
 
         </LinearLayout>
 
