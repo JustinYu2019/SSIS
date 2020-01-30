@@ -39,7 +39,7 @@ public class NotificationListAdapter extends ArrayAdapter<Requisition> {
         LayoutInflater inflater = (LayoutInflater) rContext.getSystemService(
                 Activity.LAYOUT_INFLATER_SERVICE);
 
-        convertView = inflater.inflate(R.layout.adapter_requisition, null);
+        convertView = inflater.inflate(R.layout.adapter_notification, null);
 
 
         TextView v1=convertView.findViewById(R.id.rDateNoti);

@@ -6,6 +6,15 @@ public class Item implements Serializable {
     private String description;
     private int unit;
 
+    public Item(){
+
+    }
+    public Item(String description, int unit) {
+        this.description = description;
+        this.unit = unit;
+    }
+
+    // getters setters
     public String getDescription() {
         return description;
     }

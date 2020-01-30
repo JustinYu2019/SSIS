@@ -46,6 +46,7 @@ int year,month,dayOfMonth;
         btnApprove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // need check for null values, if it is null or not
                    // after approve, need send notifications of delegate details to the user
             }
         });

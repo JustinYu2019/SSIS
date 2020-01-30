@@ -47,6 +47,7 @@ Button Logout;
         rList.add(r2);
          RequisitionListAdapter adapter=new RequisitionListAdapter(this,R.layout.adapter_requisition,rList);
 
+         // put adapter into listview
         rListView.setAdapter(adapter);
         rListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

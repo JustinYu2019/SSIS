@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DeptHeadReqDetailActivity"></activity>
+        <activity android:name=".StoreClerkDisbursementDetailActivity"></activity>
+        <activity android:name=".StoreClerkDisbursementActivity" />
+        <activity android:name=".StoreClerkContactActivity" />
+        <activity android:name=".DeptHeadReqDetailActivity" />
         <activity android:name=".DeptHeadReqActivity" />
         <activity android:name=".DeptHeadDelegateActivity" />
         <activity android:name=".DeptHeadNotificationActivity" />
