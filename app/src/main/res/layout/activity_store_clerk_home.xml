@@ -19,7 +19,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:background="@color/blue"
+            android:background="@color/blueN1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -30,12 +30,13 @@
                 android:gravity="center"
                 android:text="@string/DisbursementList"
                 android:textColor="@color/black" />
+
             <Button
                 android:id="@+id/LogoutStoreHome"
-                android:text="@string/Logout"
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/Logout"
+                android:textColor="@color/black" />
         </LinearLayout>
         <TextView
             android:text="Collection Point"
@@ -56,7 +57,7 @@
         <LinearLayout
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:background="@color/blueN1"
+            android:background="@color/red"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -92,7 +93,7 @@
         <LinearLayout
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:background="@color/blueN1"
+            android:background="@color/orange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -128,7 +129,7 @@
         <LinearLayout
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:background="@color/blueN1"
+            android:background="@color/yellow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -164,7 +165,7 @@
         <LinearLayout
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:background="@color/blueN1"
+            android:background="@color/green"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -200,7 +201,7 @@
         <LinearLayout
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:background="@color/blueN1"
+            android:background="@color/blue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -236,7 +237,7 @@
         <LinearLayout
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:background="@color/blueN1"
+            android:background="@color/indigo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

@@ -13,5 +13,7 @@
     <color name="purple">#9C27B0</color>
     <color name="darkBlue">#3F51B5</color>
     <color name="black">#000000</color>
+    <color name="indigo">#3F51B5</color>
+    <color name="violet">#673AB7</color>
 
 </resources>

@@ -1,70 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".StoreClerkDisbursementDetailActivity">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/topRowDisDet"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/L1"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/chart_layoutDisburse"
+        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/textDisburseDetail"
+            android:text="@string/DisbursementList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/L2"
-            app:layout_constraintHeight_percent="0.1"
-            app:layout_constraintTop_toTopOf="parent">
-            <TextView
-                android:id="@+id/textDisburseDetail"
-                android:text="@string/DisbursementList"
+            android:paddingLeft="140dp"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/LogoutDisburseDetail"
+            android:text="@string/Logout"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/chart_layoutDisburse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/AcknowledgeDescriptionLayout"
+        app:layout_constraintHeight_percent="0.65"
+        app:layout_constraintTop_toBottomOf="@id/topRowDisDet">
+        <TextView
+            android:id="@+id/rowDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/AcknowledgeDescriptionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/AcknowledgeLayout"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintTop_toBottomOf="@id/chart_layoutDisburse">
+        <TextView
+            android:text="Reason for the change: "
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:hint="Please enter reason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/AcknowledgeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintTop_toBottomOf="@id/AcknowledgeDescriptionLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/confirmDis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="140dp"
-                android:textColor="@color/black"
                 android:layout_weight="1"
-                />
+                android:background="@color/orange"
+                android:textColor="@color/white"
+                android:text="Confirm Quantity" />
+
             <Button
-                android:id="@+id/LogoutDisburseDetail"
-                android:text="@string/Logout"
-                android:layout_weight="3"
+                android:id="@+id/ApproveDis"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/green"
+                android:textColor="@color/white"
+                android:text="Acknowledge" />
 
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/L2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
-            app:layout_constraintBottom_toTopOf="@+id/L3"
-            app:layout_constraintHeight_percent="0.8"
-            app:layout_constraintTop_toBottomOf="@id/L1"
-            >
-
-            <ListView
-                android:id="@+id/listViewDisbursementDetail"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-<!--                android:layout_alignParentTop="true"-->
-<!--                android:layout_alignParentBottom="true"-->
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/L3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent="0.1"
-            app:layout_constraintTop_toBottomOf="@id/L2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="Testing"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+
+</LinearLayout>
