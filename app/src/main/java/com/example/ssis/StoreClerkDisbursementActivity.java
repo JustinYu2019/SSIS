@@ -6,17 +6,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class StoreClerkDisbursementActivity extends AppCompatActivity {
-
+Button Logout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_clerk_disbursment);
+
+        Logout=findViewById(R.id.LogoutDisbursement);
+        Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(StoreClerkDisbursementActivity.this,MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+
 
         Intent i=getIntent();
         CollectionPoint cP=(CollectionPoint) i.getSerializableExtra("cp");

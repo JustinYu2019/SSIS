@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class StoreClerkHomeActivity extends AppCompatActivity implements View.OnClickListener {
     CollectionPoint c1;CollectionPoint c2;CollectionPoint c3;
     CollectionPoint c4;CollectionPoint c5;CollectionPoint c6;
+    Button Logout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +30,10 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements View.On
         Button universityContact=findViewById(R.id.contactUniversity);
         Button universityDisburse=findViewById(R.id.disburseUniversity);
 
-
+        Logout=findViewById(R.id.LogoutStoreHome);
 
         // get Items, Collection Point and departments
+        // temporary use this data
         //ArrayList<Item> itemList=new ArrayList<Item>(Arrays.asList(new Item("pen",10)));
         ArrayList<Item> itemList=new ArrayList<Item>();
         itemList.add(new Item("ruler",10));
@@ -93,6 +95,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements View.On
         c6.setName("University Hospital");
         c6.setDepartmentList(universityDeptList);
 
+        // Initialize
         stationeryContact.setOnClickListener(this);
         stationeryDisburse.setOnClickListener(this);
         managementContact.setOnClickListener(this);
@@ -105,65 +108,72 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements View.On
         scienceDisburse.setOnClickListener(this);
         universityContact.setOnClickListener(this);
         universityDisburse.setOnClickListener(this);
+        Logout.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         Intent i=null;
         switch (v.getId()){
-//            case R.id.contactStationery:
-//                i=new Intent(this,StoreClerkContactActivity.class);
-//                // put object here to pass to Contacts Ui
-//
-//                break;
+            case R.id.contactStationery:
+                i=new Intent(this,StoreClerkContactActivity.class);
+                // put object here to pass to Contacts Ui
+                i.putExtra("cp",c1);
+                break;
             case R.id.disburseStationery:
                 i=new Intent(this, StoreClerkDisbursementActivity.class);
                 // put object here to pass to disbursment Ui
                 i.putExtra("cp",c1);
                 break;
-//            case R.id.contactManagement:
-//                i=new Intent(this,StoreClerkContactActivity.class);
-//                // put object here to pass to Contacts Ui
-//
-//                break;
+            case R.id.contactManagement:
+                i=new Intent(this,StoreClerkContactActivity.class);
+                // put object here to pass to Contacts Ui
+                i.putExtra("cp",c2);
+                break;
             case R.id.disburseManagement:
                 i=new Intent(this, StoreClerkDisbursementActivity.class);
                 // put object here to pass to disbursment Ui
                 i.putExtra("cp",c2);
                 break;
-//            case R.id.contactMedical:
-//                i=new Intent(this,StoreClerkContactActivity.class);
-//                // put object here to pass to Contacts Ui
-//
-//                break;
+            case R.id.contactMedical:
+                i=new Intent(this,StoreClerkContactActivity.class);
+                // put object here to pass to Contacts Ui
+                i.putExtra("cp",c3);
+                break;
             case R.id.disburseMedical:
                 i=new Intent(this, StoreClerkDisbursementActivity.class);
                 // put object here to pass to disbursment Ui
                 i.putExtra("cp",c3);
                 break;
-//            case R.id.contactEngineering:
-//                i=new Intent(this,StoreClerkContactActivity.class);
-//                break;
+            case R.id.contactEngineering:
+                i=new Intent(this,StoreClerkContactActivity.class);
+                i.putExtra("cp",c4);
+                break;
             case R.id.disburseEngineering:
                 i=new Intent(this, StoreClerkDisbursementActivity.class);
                 // put object here to pass to disbursment Ui
                 i.putExtra("cp",c4);
                 break;
-//            case R.id.contactScience:
-//                i=new Intent(this,StoreClerkContactActivity.class);
-//                break;
+            case R.id.contactScience:
+                i=new Intent(this,StoreClerkContactActivity.class);
+                i.putExtra("cp",c5);
+                break;
             case R.id.disburseScience:
                 i=new Intent(this, StoreClerkDisbursementActivity.class);
                 // put object here to pass to disbursment Ui
                 i.putExtra("cp",c5);
                 break;
-//            case R.id.contactUniversity:
-//                i=new Intent(this,StoreClerkContactActivity.class);
-//                break;
+            case R.id.contactUniversity:
+                i=new Intent(this,StoreClerkContactActivity.class);
+                i.putExtra("cp",c6);
+                break;
             case R.id.disburseUniversity:
                 i=new Intent(this, StoreClerkDisbursementActivity.class);
                 // put object here to pass to disbursment Ui
                 i.putExtra("cp",c6);
+                break;
+            case R.id.LogoutStoreHome:
+                i =new Intent(this,MainActivity.class);
                 break;
         }
         if(i.resolveActivity(getPackageManager())!=null){

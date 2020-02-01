@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -25,6 +26,8 @@ String name;String collectionPoint;String contactNumber;String deptRep;String re
     EditText quanEdit;
     EditText reasonEdit;
     TextView qty;
+    Button Approve,Confirm,Logout;
+    TextView tDeptName,tDeptRep,tDeptReqId,tDeptContact,tCollectionPoint;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +41,22 @@ String name;String collectionPoint;String contactNumber;String deptRep;String re
         deptRep=d.getDeptRep();
         reqId=d.getRequisitionId();
 
+        tDeptName=findViewById(R.id.deptName);tDeptRep=findViewById(R.id.deptRep);tDeptReqId=findViewById(R.id.deptCode);
+        tDeptContact=findViewById(R.id.deptContact);tCollectionPoint=findViewById(R.id.collectionPoint);
 
+        tDeptName.setText(""+name);tDeptRep.setText(""+deptRep);tDeptReqId.setText(""+reqId);tDeptContact.setText(""+contactNumber);
+        tCollectionPoint.setText(""+collectionPoint);
         // set up confirm Button, upon click, will send notification to the clerk..--> this needs to learn..
-
+        Approve=findViewById(R.id.ApproveDis);
+        Confirm=findViewById(R.id.confirmDis);
+        Logout=findViewById(R.id.LogoutDisburseDetail);
+        Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(StoreClerkDisbursementDetailActivity.this,MainActivity.class);
+                startActivity(i);
+            }
+        });
 
         // use table layout
         //itemList=new ArrayList<>();

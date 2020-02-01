@@ -9,27 +9,95 @@
 
     <LinearLayout
         android:id="@+id/topRowDisDet"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/chart_layoutDisburse"
         app:layout_constraintHeight_percent="0.2"
         app:layout_constraintTop_toTopOf="parent">
-        <TextView
-            android:id="@+id/textDisburseDetail"
-            android:text="@string/DisbursementList"
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="140dp"
-            android:textColor="@color/black"
-            android:layout_weight="1"
-            />
-        <Button
-            android:id="@+id/LogoutDisburseDetail"
-            android:text="@string/Logout"
-            android:layout_weight="3"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textDisburseDetail"
+                android:text="@string/DisbursementList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="140dp"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                />
+            <Button
+                android:id="@+id/LogoutDisburseDetail"
+                android:text="@string/Logout"
+                android:layout_weight="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/deptName"
+                android:text="department"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:id="@+id/deptRep"
+                android:text="DeptRep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="120dp"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/deptCode"
+                android:text="department Code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:id="@+id/deptContact"
+                android:text="DeptContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="120dp"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/collectionPoint"
+                android:text="Collection Point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
 
 
     </LinearLayout>

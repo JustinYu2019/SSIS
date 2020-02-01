@@ -6,13 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".StoreClerkContactActivity">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="171dp"
-        android:layout_marginTop="83dp"
-        android:text="this is contact page"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/LinearTextCP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/linearCollectionDetail"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/textCollectionDetail"
+                android:text="Collection Details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="140dp"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                />
+            <Button
+                android:id="@+id/LogoutCP"
+                android:text="@string/Logout"
+                android:layout_weight="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearCollectionDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.9"
+            app:layout_constraintTop_toBottomOf="@id/LinearTextCP"
+            >
+            <ListView
+                android:id="@+id/contactListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+
+                />
+
+        </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
