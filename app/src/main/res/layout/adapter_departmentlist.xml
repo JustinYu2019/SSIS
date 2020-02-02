@@ -19,6 +19,12 @@
             android:text="hello world1"
             android:layout_width="match_parent"
             android:layout_height="30dp"/>
+        <TextView
+            android:paddingLeft="50dp"
+            android:textColor="@color/black"
+            android:text="@string/ClickToView"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
 
 
     </LinearLayout>

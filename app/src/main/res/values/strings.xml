@@ -10,23 +10,25 @@
     <string name="Logout">Logout </string>
     <string name="ViewNotifications">View Notifications </string>
     <string name="ViewRequisition">View Requisition </string>
-    <string name="Delegate">Delegate </string>
+    <string name="Delegate">Delegations </string>
     <string name="StationeryReq">Stationery Requisition Request</string>
     <string name="Description">Description</string>
     <string name="Quantity">Quantity</string>
     <string name="Remarks">Remarks: </string>
     <string name="RemarksHint">Please enter remarks</string>
+    <string name="ClickToView">Click to view Detail</string>
+    <string name="ApproveRejectDele">Approve/Reject Requisitions</string>
     <string name="Reject">Reject</string>
     <string name="Approve">Approve</string>
     <string name="DelegateActingHead">Delegate Dept Acting Head</string>
     <string name="DisbursementList">Disbursement List</string>
     <string name="Disbursement">Disbursements</string>
     <string name="Contacts">Contacts</string>
-    <string name="Stationery">Stationery Store</string>
-    <string name="Management">Management School</string>
-    <string name="Medical">Medical School</string>
-    <string name="Engineering">Engineering School</string>
-    <string name="Science">Science School</string>
-    <string name="University">University Hospital</string>
+    <string name="Stationery">Stationery Store (9:30am)</string>
+    <string name="Management">Management School (11:00am)</string>
+    <string name="Medical">Medical School (9:30am)</string>
+    <string name="Engineering">Engineering School (11:00am)</string>
+    <string name="Science">Science School (9:30am)</string>
+    <string name="University">University Hospital (11:00am)</string>
 
 </resources>

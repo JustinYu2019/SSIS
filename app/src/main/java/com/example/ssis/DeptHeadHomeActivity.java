@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class DeptHeadHomeActivity extends AppCompatActivity {
-Button viewRequisition,viewNotification,delegate,Logout;
+Button viewRequisition,viewNotification,delegate,Logout,changeRepCP;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,11 +17,19 @@ Button viewRequisition,viewNotification,delegate,Logout;
         viewRequisition=findViewById(R.id.viewReq);
         viewNotification=findViewById(R.id.viewNoti);
         delegate=findViewById(R.id.delegate);
+        changeRepCP=findViewById(R.id.changeRepCP);
         Logout=findViewById(R.id.Logout1);
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(DeptHeadHomeActivity.this,MainActivity.class);
+                startActivity(i);
+            }
+        });
+        changeRepCP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(DeptHeadHomeActivity.this,DeptHeadRepCPActivity.class);
                 startActivity(i);
             }
         });

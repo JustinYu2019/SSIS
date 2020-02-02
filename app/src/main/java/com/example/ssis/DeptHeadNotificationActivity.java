@@ -2,6 +2,7 @@ package com.example.ssis;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -44,7 +45,7 @@ Button Logout;
         rList.add(r1);
         rList.add(r2);
         rList.add(r3);
-        RequisitionListAdapter adapter=new RequisitionListAdapter(this,R.layout.adapter_notification,rList);
+        NotificationListAdapter adapter=new NotificationListAdapter(this,R.layout.adapter_notification,rList);
 
         rListView.setAdapter(adapter);
 

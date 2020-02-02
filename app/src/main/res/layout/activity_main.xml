@@ -25,6 +25,7 @@
         android:layout_marginStart="160dp"
         android:layout_marginTop="52dp"
         android:text="@string/Welcome"
+        android:textColor="@color/green"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,6 +36,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="152dp"
         android:text="@string/Username"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,6 +47,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="56dp"
         android:text="@string/Password"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -109,6 +112,7 @@
         android:layout_marginStart="144dp"
         android:layout_marginTop="32dp"
         android:text="@string/LogicUni"
+        android:textColor="@color/orange"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LoginDeptRep" />
 
@@ -119,6 +123,7 @@
         android:layout_marginStart="103dp"
         android:layout_marginTop="18dp"
         android:text="@string/Illu"
+        android:textColor="@color/orange"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
