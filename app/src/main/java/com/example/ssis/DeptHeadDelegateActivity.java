@@ -21,6 +21,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DeptHeadDelegateActivity extends AppCompatActivity {
+
+    int id=0;
 Button btnLogout,btnStartDate,btnEndDate,btnApprove,btnReject;
 TextView textStartDate,textEndDate;
 EditText messageEditText;
@@ -30,15 +32,17 @@ String date1,date2;
 int year,month,dayOfMonth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dept_head_delegate);
         // initialize
+        id= getIntent().getIntExtra("id",0);
         btnLogout=findViewById(R.id.LogoutDelegate);
         btnStartDate=findViewById(R.id.startDateBtn);
         btnEndDate=findViewById(R.id.endDateBtn);
         textStartDate = findViewById(R.id.textStartDate);
         textEndDate = findViewById(R.id.textEndDate);
-        spinnerName=findViewById(R.id.spinner1);
+        spinnerName=findViewById(R.id.spinner1);//???
         btnLogout=findViewById(R.id.LogoutDelegate);
         btnApprove=findViewById(R.id.ApproveDele);
         btnReject=findViewById(R.id.RejectDele);

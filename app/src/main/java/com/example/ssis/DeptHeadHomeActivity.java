@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.Button;
 
 public class DeptHeadHomeActivity extends AppCompatActivity {
-Button viewRequisition,viewNotification,delegate,Logout,changeRepCP;
+    int id=0;
+    Button viewRequisition,viewNotification,delegate,Logout,changeRepCP;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        id= getIntent().getIntExtra("id",0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dept_head_home);
 
@@ -23,6 +25,7 @@ Button viewRequisition,viewNotification,delegate,Logout,changeRepCP;
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(DeptHeadHomeActivity.this,MainActivity.class);
+                i.putExtra("id",id);
                 startActivity(i);
             }
         });
@@ -30,6 +33,7 @@ Button viewRequisition,viewNotification,delegate,Logout,changeRepCP;
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(DeptHeadHomeActivity.this,DeptHeadRepCPActivity.class);
+                i.putExtra("id",id);
                 startActivity(i);
             }
         });
@@ -37,6 +41,7 @@ Button viewRequisition,viewNotification,delegate,Logout,changeRepCP;
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(DeptHeadHomeActivity.this,DeptHeadReqActivity.class);
+                i.putExtra("id",id);
                 startActivity(i);
             }
         });
@@ -44,6 +49,7 @@ Button viewRequisition,viewNotification,delegate,Logout,changeRepCP;
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(DeptHeadHomeActivity.this,DeptHeadNotificationActivity.class);
+                i.putExtra("id",id);
                 startActivity(i);
             }
         });
@@ -51,6 +57,7 @@ Button viewRequisition,viewNotification,delegate,Logout,changeRepCP;
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(DeptHeadHomeActivity.this,DeptHeadDelegateActivity.class);
+                i.putExtra("id",id);
                 startActivity(i);
             }
         });
