@@ -27,6 +27,7 @@ public class DeptHeadHomeActivity extends AppCompatActivity {
                 Intent i=new Intent(DeptHeadHomeActivity.this,MainActivity.class);
                 i.putExtra("id",id);
                 startActivity(i);
+                finish();
             }
         });
         changeRepCP.setOnClickListener(new View.OnClickListener() {
@@ -35,6 +36,7 @@ public class DeptHeadHomeActivity extends AppCompatActivity {
                 Intent i=new Intent(DeptHeadHomeActivity.this,DeptHeadRepCPActivity.class);
                 i.putExtra("id",id);
                 startActivity(i);
+                finish();
             }
         });
         viewRequisition.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +45,7 @@ public class DeptHeadHomeActivity extends AppCompatActivity {
                 Intent i=new Intent(DeptHeadHomeActivity.this,DeptHeadReqActivity.class);
                 i.putExtra("id",id);
                 startActivity(i);
+                finish();
             }
         });
         viewNotification.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +54,7 @@ public class DeptHeadHomeActivity extends AppCompatActivity {
                 Intent i=new Intent(DeptHeadHomeActivity.this,DeptHeadNotificationActivity.class);
                 i.putExtra("id",id);
                 startActivity(i);
+                finish();
             }
         });
         delegate.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +63,7 @@ public class DeptHeadHomeActivity extends AppCompatActivity {
                 Intent i=new Intent(DeptHeadHomeActivity.this,DeptHeadDelegateActivity.class);
                 i.putExtra("id",id);
                 startActivity(i);
+                finish();
             }
         });
     }
