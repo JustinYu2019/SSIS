@@ -7,8 +7,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Requisition implements Serializable {
+    private int requisitionId;
     private String name;  // Employee name
-
+    private String remarks;
     // use datetime formatter to do it
     private String raiseDate; // date of requisition
     private ArrayList<Item> itemList; // list of item raised
@@ -23,7 +24,20 @@ public class Requisition implements Serializable {
         this.raiseDate = raiseDate;
         this.itemList = itemList;
     }
+    public void setReqId(int requisitionId) {
+        this.requisitionId=requisitionId;
+    }
+    public int getReqId() {
+        return requisitionId;
+    }
 
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
     public String getName() {
         return name;
     }
