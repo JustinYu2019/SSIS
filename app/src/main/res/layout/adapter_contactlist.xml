@@ -25,12 +25,6 @@
             android:text="hello world1"
             android:layout_width="match_parent"
             android:layout_height="30dp"/>
-        <TextView
-            android:id="@+id/cCP"
-            android:paddingLeft="50dp"
-            android:text="hello world1"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"/>
 
 
     </LinearLayout>

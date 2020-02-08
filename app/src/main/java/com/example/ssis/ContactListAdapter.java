@@ -31,7 +31,7 @@ public class ContactListAdapter extends ArrayAdapter<Department> {
         String dept=getItem(position).getDeptName();
         String deptRep=getItem(position).getDeptRep();
         String contact=getItem(position).getContactNumber();
-        String cP=getItem(position).getCollectionPoint();
+
 
 
 
@@ -47,13 +47,13 @@ public class ContactListAdapter extends ArrayAdapter<Department> {
         TextView v1=convertView.findViewById(R.id.cDeptName);
         TextView v2=convertView.findViewById(R.id.cDeptRep);
         TextView v3=convertView.findViewById(R.id.cContactNumber);
-        TextView v4=convertView.findViewById(R.id.cCP);
+
 
         v1.setTextColor(Color.BLACK);
         v1.setText(dept);
         v2.setText(deptRep);
         v3.setText(contact);
-        v4.setText(cP);
+
         return convertView;
     }
 }

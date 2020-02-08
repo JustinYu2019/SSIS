@@ -15,10 +15,15 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
-public class StoreClerkDisbursementDetailActivity extends AppCompatActivity {
-String name;String collectionPoint;String contactNumber;String deptRep;String reqId;
+public class StoreClerkDisbursementDetailActivity extends AppCompatActivity implements AsyncToServer.IServerResponse {
+    String name;String collectionPoint;String contactNumber;String deptRep;String reqId;
+    int id;
     ArrayList<Item>itemList;
     LinearLayout dChartLayout;
     TableLayout dTableLayout;
@@ -28,18 +33,21 @@ String name;String collectionPoint;String contactNumber;String deptRep;String re
     TextView qty;
     Button Approve,Confirm,Logout;
     TextView tDeptName,tDeptRep,tDeptReqId,tDeptContact,tCollectionPoint;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_clerk_disbursement_detail);
 
         Intent i=getIntent();
+        id=i.getIntExtra("id",0);
+        authenticateUser(id);
         Department d=(Department) i.getSerializableExtra("Department");
         name=d.getDeptName();
-        collectionPoint=d.getCollectionPoint();
+        collectionPoint=i.getStringExtra("location");
         contactNumber=d.getContactNumber();
         deptRep=d.getDeptRep();
-        reqId=d.getRequisitionId();
+        reqId=d.getDisbursementId();
 
         tDeptName=findViewById(R.id.deptName);tDeptRep=findViewById(R.id.deptRep);tDeptReqId=findViewById(R.id.deptCode);
         tDeptContact=findViewById(R.id.deptContact);tCollectionPoint=findViewById(R.id.collectionPoint);
@@ -48,13 +56,26 @@ String name;String collectionPoint;String contactNumber;String deptRep;String re
         tCollectionPoint.setText(""+collectionPoint);
         // set up confirm Button, upon click, will send notification to the clerk..--> this needs to learn..
         Approve=findViewById(R.id.ApproveDis);
+        Approve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                acknowledge();
+            }
+        });
         Confirm=findViewById(R.id.confirmDis);
+        Confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmQuantity();
+            }
+        });
         Logout=findViewById(R.id.LogoutDisburseDetail);
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(StoreClerkDisbursementDetailActivity.this,MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -107,5 +128,88 @@ String name;String collectionPoint;String contactNumber;String deptRep;String re
             dTableLayout.addView(row);
         }
         dChartLayout.addView(dTableLayout);
+    }
+    public void acknowledge(){
+        reasonEdit=(EditText)findViewById(R.id.disbursementRemark);
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+            jsonObj.put("disbursementId",reqId);
+            jsonObj.put("remark",reasonEdit.getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkDisbursementDetailActivity.this, "acknowledge", "http://10.0.2.2:59591/Home/AcknowledgeDisbursement", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+    public void confirmQuantity(){
+        int rows=dTableLayout.getChildCount();
+        JSONArray array=new JSONArray();
+        for(int i=0; i<rows;i++){
+            View view=dTableLayout.getChildAt(i);
+            JSONObject jsonObject=new JSONObject();
+            if(view instanceof TableRow){
+                TableRow row=(TableRow) view;
+                View v1=row.getChildAt(0);
+                View v3=row.getChildAt(2);
+                TextView description=new TextView(this);
+                EditText quantity=new EditText(this);
+                if(v1 instanceof TextView){
+                    description=(TextView)v1;
+                }
+                if(v3 instanceof EditText){
+                    quantity=(EditText)v3;
+                }
+
+                try{
+                    jsonObject.put("description",description.getText().toString());
+                    jsonObject.put("quantity",quantity.getText().toString());
+                    array.put(i,jsonObject);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id",id );
+            jsonObj.put("disbursementId",reqId);
+            jsonObj.put("items",array);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkDisbursementDetailActivity.this, "confirm", "http://10.0.2.2:59591/Home/UpdateQuantity", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+    @Override
+    public void onServerResponse(JSONObject jsonObj){
+        if (jsonObj == null) {
+            Toast msg = Toast.makeText(StoreClerkDisbursementDetailActivity.this,"Server No response ", Toast.LENGTH_LONG);
+            msg.show();
+        }
+        try {
+            String context = (String) jsonObj.get("context");
+            if (context.compareTo("acknowledge") == 0) {
+                Toast.makeText(StoreClerkDisbursementDetailActivity.this,"You have acknowledge the disbursement",Toast.LENGTH_LONG).show();
+                Intent i=new Intent(StoreClerkDisbursementDetailActivity.this,StoreClerkDisbursementActivity.class);
+                i.putExtra("id",id);
+                startActivity(i);
+            }
+            if (context.compareTo("confirm") == 0) {
+                Toast.makeText(StoreClerkDisbursementDetailActivity.this,"New quanities are updated",Toast.LENGTH_LONG).show();
+                Intent i=new Intent(StoreClerkDisbursementDetailActivity.this,StoreClerkDisbursementActivity.class);
+                i.putExtra("id",id);
+                startActivity(i);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void authenticateUser(int id){
+        if(id==0){
+            intent=new Intent(StoreClerkDisbursementDetailActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

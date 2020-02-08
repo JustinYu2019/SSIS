@@ -30,7 +30,7 @@ public class DepartmentListAdapter extends ArrayAdapter<Department> {
         // getItem is the global method
 
         String deptName=getItem(position).getDeptName();
-        String id=getItem(position).getRequisitionId();
+        String id=getItem(position).getDisbursementId();
         LayoutInflater inflater = (LayoutInflater) rContext.getSystemService(
                 Activity.LAYOUT_INFLATER_SERVICE);
 

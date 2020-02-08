@@ -6,17 +6,82 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class StoreClerkHomeActivity extends AppCompatActivity implements View.OnClickListener {
-    CollectionPoint c1;CollectionPoint c2;CollectionPoint c3;
-    CollectionPoint c4;CollectionPoint c5;CollectionPoint c6;
+public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncToServer.IServerResponse, View.OnClickListener {
+/*    CollectionPoint c1;CollectionPoint c2;CollectionPoint c3;
+    CollectionPoint c4;CollectionPoint c5;CollectionPoint c6;*/
+    CollectionPoint cp;
+    int id=0;
     Button Logout;
+    Intent i=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_clerk_home);
+        initUI();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.contactStationery:
+                findCollectionPointAtStationery();
+                break;
+            case R.id.disburseStationery:
+                findCollectionPointAtStationeryD();
+                break;
+            case R.id.contactManagement:
+                findCollectionPointAtManagement();
+                break;
+            case R.id.disburseManagement:
+                findCollectionPointAtManagementD();
+                break;
+            case R.id.contactMedical:
+                findCollectionPointAtMedical();
+                break;
+            case R.id.disburseMedical:
+                findCollectionPointAtMedicalD();
+                break;
+            case R.id.contactEngineering:
+                findCollectionPointAtEngineering();
+                break;
+            case R.id.disburseEngineering:
+                findCollectionPointAtEngineeringD();
+                break;
+            case R.id.contactScience:
+                findCollectionPointAtScience();
+                break;
+            case R.id.disburseScience:
+                findCollectionPointAtScienceD();
+                break;
+            case R.id.contactUniversity:
+                findCollectionPointAtUniversityHospital();
+                break;
+            case R.id.disburseUniversity:
+                findCollectionPointAtUniversityHospitalD();
+                break;
+            case R.id.LogoutStoreHome:
+                i =new Intent(this,MainActivity.class);
+                startActivity(i);
+                finish();
+                break;
+        }
+
+    }
+
+    public void initUI(){
+
+        id=getIntent().getIntExtra("id",0);
+        authenticateUser(id);
+
         Button stationeryContact=findViewById(R.id.contactStationery);
         Button stationeryDisburse=findViewById(R.id.disburseStationery);
         Button managementContact=findViewById(R.id.contactManagement);
@@ -35,66 +100,6 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements View.On
         // get Items, Collection Point and departments
         // temporary use this data
         //ArrayList<Item> itemList=new ArrayList<Item>(Arrays.asList(new Item("pen",10)));
-        ArrayList<Item> itemList=new ArrayList<Item>();
-        itemList.add(new Item("ruler",10));
-        itemList.add(new Item("pen",20));
-        itemList.add(new Item("eraser",30));
-
-        ArrayList<Item> itemList2=new ArrayList<Item>();
-        itemList2.add(new Item("ruler",10));
-        itemList2.add(new Item("pen",20));
-        itemList2.add(new Item("Ink",50));
-        itemList2.add(new Item("Highlighter",10));
-
-        ArrayList<Department>stationeryDeptList=new ArrayList<>();
-        Department d1=new Department("Science Dept","Stationery Store","Jenny","S123","874321",itemList);
-        Department d2=new Department("Math Dept","Stationery Store","Branny","M123","66991",itemList2);
-        stationeryDeptList.add(d1);stationeryDeptList.add(d2);
-        c1=new CollectionPoint();
-        c1.setName("Stationery Store");
-        c1.setDepartmentList(stationeryDeptList);
-
-
-        ArrayList<Department>managementDeptList=new ArrayList<>();
-        Department d3=new Department("English Dept","Management School","Jenny","S123","874321",itemList);
-        Department d4=new Department("Pyschology Dept","Management School","Branny","M123","66991",itemList2);
-        managementDeptList.add(d3);managementDeptList.add(d4);
-        c2=new CollectionPoint();
-        c2.setName("Management School");
-        c2.setDepartmentList(managementDeptList);
-
-        ArrayList<Department>medicalDeptList=new ArrayList<>();
-        Department d5=new Department("Arts Dept","Medical School","Jenny","S123","874321",itemList);
-        Department d6=new Department("Architect Dept","Medical School","Branny","M123","66991",itemList2);
-        medicalDeptList.add(d5);medicalDeptList.add(d6);
-        c3=new CollectionPoint();
-        c3.setName("Medical School");
-        c3.setDepartmentList(medicalDeptList);
-
-        ArrayList<Department>engineeringDeptList=new ArrayList<>();
-        Department d7=new Department("Arts Dept","Engineering School","Jenny","S123","874321",itemList);
-        Department d8=new Department("Architect Dept","Engineering School","Branny","M123","66991",itemList2);
-        engineeringDeptList.add(d7);engineeringDeptList.add(d8);
-        c4=new CollectionPoint();
-        c4.setName("Engineering School");
-        c4.setDepartmentList(engineeringDeptList);
-
-        ArrayList<Department>scienceDeptList=new ArrayList<>();
-        Department d9=new Department("Arts Dept","Science School","Jenny","S123","874321",itemList);
-        Department d10=new Department("Architect Dept","Science School","Branny","M123","66991",itemList2);
-        scienceDeptList.add(d9);scienceDeptList.add(d10);
-        c5=new CollectionPoint();
-        c5.setName("Science School");
-        c5.setDepartmentList(engineeringDeptList);
-
-        ArrayList<Department>universityDeptList=new ArrayList<>();
-        Department d11=new Department("Arts Dept","University Hospital","Jenny","S123","874321",itemList);
-        Department d12=new Department("Architect Dept","University Hospital","Branny","M123","66991",itemList2);
-        universityDeptList.add(d12);universityDeptList.add(d11);
-        c6=new CollectionPoint();
-        c6.setName("University Hospital");
-        c6.setDepartmentList(universityDeptList);
-
         // Initialize
         stationeryContact.setOnClickListener(this);
         stationeryDisburse.setOnClickListener(this);
@@ -109,76 +114,222 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements View.On
         universityContact.setOnClickListener(this);
         universityDisburse.setOnClickListener(this);
         Logout.setOnClickListener(this);
-    }
 
+    }
     @Override
-    public void onClick(View v) {
-        Intent i=null;
-        switch (v.getId()){
-            case R.id.contactStationery:
-                i=new Intent(this,StoreClerkContactActivity.class);
-                // put object here to pass to Contacts Ui
-                i.putExtra("cp",c1);
-                break;
-            case R.id.disburseStationery:
-                i=new Intent(this, StoreClerkDisbursementActivity.class);
-                // put object here to pass to disbursment Ui
-                i.putExtra("cp",c1);
-                break;
-            case R.id.contactManagement:
-                i=new Intent(this,StoreClerkContactActivity.class);
-                // put object here to pass to Contacts Ui
-                i.putExtra("cp",c2);
-                break;
-            case R.id.disburseManagement:
-                i=new Intent(this, StoreClerkDisbursementActivity.class);
-                // put object here to pass to disbursment Ui
-                i.putExtra("cp",c2);
-                break;
-            case R.id.contactMedical:
-                i=new Intent(this,StoreClerkContactActivity.class);
-                // put object here to pass to Contacts Ui
-                i.putExtra("cp",c3);
-                break;
-            case R.id.disburseMedical:
-                i=new Intent(this, StoreClerkDisbursementActivity.class);
-                // put object here to pass to disbursment Ui
-                i.putExtra("cp",c3);
-                break;
-            case R.id.contactEngineering:
-                i=new Intent(this,StoreClerkContactActivity.class);
-                i.putExtra("cp",c4);
-                break;
-            case R.id.disburseEngineering:
-                i=new Intent(this, StoreClerkDisbursementActivity.class);
-                // put object here to pass to disbursment Ui
-                i.putExtra("cp",c4);
-                break;
-            case R.id.contactScience:
-                i=new Intent(this,StoreClerkContactActivity.class);
-                i.putExtra("cp",c5);
-                break;
-            case R.id.disburseScience:
-                i=new Intent(this, StoreClerkDisbursementActivity.class);
-                // put object here to pass to disbursment Ui
-                i.putExtra("cp",c5);
-                break;
-            case R.id.contactUniversity:
-                i=new Intent(this,StoreClerkContactActivity.class);
-                i.putExtra("cp",c6);
-                break;
-            case R.id.disburseUniversity:
-                i=new Intent(this, StoreClerkDisbursementActivity.class);
-                // put object here to pass to disbursment Ui
-                i.putExtra("cp",c6);
-                break;
-            case R.id.LogoutStoreHome:
-                i =new Intent(this,MainActivity.class);
-                break;
+    public void onServerResponse(JSONObject jsonObj){
+        if (jsonObj == null) {
+            Toast msg = Toast.makeText(StoreClerkHomeActivity.this,"Server No response ", Toast.LENGTH_LONG);
+            msg.show();
         }
-        if(i.resolveActivity(getPackageManager())!=null){
-            startActivity(i);
-        }
+        try {
+            String context = (String) jsonObj.get("context");
+            if (context.startsWith("c")) {
+                String name=jsonObj.getString("location");
+                JSONArray departments = jsonObj.getJSONArray("departments");
+                ArrayList<Department> departmentList=new ArrayList<>();
+                for (int i = 0; i < departments.length(); i++) {
+                    JSONObject dept=departments.getJSONObject(i);
+                    ArrayList<Item> itemList=new ArrayList<>();
+                    try{
+                        JSONArray items=dept.getJSONArray("items");
+                        for(int j=0;j<items.length();i++){
+                            JSONObject item=items.getJSONObject(i);
+                            String description=item.getString("description");
+                            int unit=item.getInt("unit");
+                            itemList.add(new Item(description,unit));
+                        }
+                    }catch(JSONException e){
+                        e.printStackTrace();
+                    }
 
+                    String deptName=dept.getString("deptName");
+                    String deptRep=dept.getString("deptRep");
+                    String disId=dept.getString("disId");
+                    if(disId.equals("null")){
+                        disId=null;
+                    }
+                    if(deptRep.equals("null")){
+                        deptRep=null;
+                    }
+                    String contact=dept.getString("contact");
+                    departmentList.add(new Department(deptName,deptRep,disId,contact,itemList));
+                    cp=new CollectionPoint();
+                    cp.setName(name);
+                    cp.setDepartmentList(departmentList);
+                }
+
+                if(context.equals("c1")){
+                    i=new Intent(this,StoreClerkContactActivity.class);
+                    // put object here to pass to Contacts Ui
+                    i.putExtra("cp",cp);
+                    i.putExtra("id",id);
+                    startActivity(i);
+                }else if(context.equals("c2")){
+                    i=new Intent(this, StoreClerkDisbursementActivity.class);
+                    // put object here to pass to disbursment Ui
+                    i.putExtra("cp",cp);
+                    i.putExtra("id",id);
+                    startActivity(i);
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
+
+    public void authenticateUser(int id){
+        if(id==0){
+            i=new Intent(StoreClerkHomeActivity.this,MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+    }
+
+    public void findCollectionPointAtStationery(){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+            jsonObj.put("location","Stationery Store");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkHomeActivity.this, "c1", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+    public void findCollectionPointAtStationeryD(){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+            jsonObj.put("location","Stationery Store");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkHomeActivity.this, "c2", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+    public void findCollectionPointAtManagement(){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+            jsonObj.put("location","Management School");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkHomeActivity.this, "c1", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+    public void findCollectionPointAtManagementD(){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+            jsonObj.put("location","Management School");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkHomeActivity.this, "c2", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+
+    public void findCollectionPointAtMedical(){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+            jsonObj.put("location","Medical School");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkHomeActivity.this, "c1", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+    public void findCollectionPointAtMedicalD(){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+            jsonObj.put("location","Medical School");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkHomeActivity.this, "c2", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+
+    public void findCollectionPointAtEngineering(){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+            jsonObj.put("location","Engineering School");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkHomeActivity.this, "c1", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+
+    public void findCollectionPointAtEngineeringD(){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+            jsonObj.put("location","Engineering School");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkHomeActivity.this, "c2", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+
+    public void findCollectionPointAtScience(){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+            jsonObj.put("location","Science School");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkHomeActivity.this, "c1", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+
+    public void findCollectionPointAtScienceD(){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+            jsonObj.put("location","Science School");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkHomeActivity.this, "c2", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+
+    public void findCollectionPointAtUniversityHospital(){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+            jsonObj.put("location","University Hospital");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkHomeActivity.this, "c1", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+
+
+    public void findCollectionPointAtUniversityHospitalD(){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+            jsonObj.put("location","University Hospital");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(StoreClerkHomeActivity.this, "c2", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+
 }

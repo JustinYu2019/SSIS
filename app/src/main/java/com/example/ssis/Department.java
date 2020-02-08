@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class Department implements Serializable {
     // collectionPoint is string instead of CollectionPoint c
     private String deptName;
-    private String collectionPoint;
+    //private String collectionPoint;
     private String deptRep;
-    private String requisitionId;
+    private String disbursementId;
     private String contactNumber;
     private ArrayList<Item> itemList;
 
@@ -17,11 +17,11 @@ public class Department implements Serializable {
 
     }
 
-    public Department(String deptName, String collectionPoint, String deptRep, String requisitionId, String contactNumber, ArrayList<Item> itemList) {
+    public Department(String deptName, String deptRep, String disbursementId, String contactNumber, ArrayList<Item> itemList) {
         this.deptName=deptName;
-        this.collectionPoint = collectionPoint;
+        //this.collectionPoint = collectionPoint;
         this.deptRep = deptRep;
-        this.requisitionId = requisitionId;
+        this.disbursementId = disbursementId;
         this.contactNumber = contactNumber;
         this.itemList=itemList;
     }
@@ -43,13 +43,13 @@ public class Department implements Serializable {
         this.itemList = itemList;
     }
 
-    public String getCollectionPoint() {
+   /* public String getCollectionPoint() {
         return collectionPoint;
     }
 
     public void setCollectionPoint(String collectionPoint) {
         this.collectionPoint = collectionPoint;
-    }
+    }*/
 
     public String getDeptRep() {
         return deptRep;
@@ -59,12 +59,12 @@ public class Department implements Serializable {
         this.deptRep = deptRep;
     }
 
-    public String getRequisitionId() {
-        return requisitionId;
+    public String getDisbursementId() {
+        return disbursementId;
     }
 
-    public void setRequisitionId(String requisitionId) {
-        this.requisitionId = requisitionId;
+    public void setDisbursementId(String disbursementId) {
+        this.disbursementId = disbursementId;
     }
 
     public String getContactNumber() {

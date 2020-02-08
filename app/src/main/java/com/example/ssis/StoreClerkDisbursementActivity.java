@@ -13,7 +13,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class StoreClerkDisbursementActivity extends AppCompatActivity {
-Button Logout;
+    Button Logout;
+    int id;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,13 +27,18 @@ Button Logout;
             public void onClick(View v) {
                 Intent i=new Intent(StoreClerkDisbursementActivity.this,MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
 
 
         Intent i=getIntent();
+        id=i.getIntExtra("id",0);
+        authenticateUser(id);
         CollectionPoint cP=(CollectionPoint) i.getSerializableExtra("cp");
+
+        final String location=cP.getName();
 
         final ArrayList<Department> deptList=cP.getDepartmentList();
 
@@ -50,11 +57,20 @@ Button Logout;
                 Intent i=new Intent(StoreClerkDisbursementActivity.this,StoreClerkDisbursementDetailActivity.class);
                 Department d=deptList.get(pos);
                 i.putExtra("Department",d);
+                i.putExtra("location",location);
+                i.putExtra("id",id);
                 Toast.makeText(StoreClerkDisbursementActivity.this,"Requested by: "+d.getDeptName(),Toast.LENGTH_LONG ).show();
                 startActivity(i);
 
 
             }
         });
+    }
+    public void authenticateUser(int id){
+        if(id==0){
+            intent=new Intent(StoreClerkDisbursementActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
