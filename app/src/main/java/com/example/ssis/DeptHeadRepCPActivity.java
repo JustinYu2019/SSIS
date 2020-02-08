@@ -60,6 +60,7 @@ public class DeptHeadRepCPActivity extends AppCompatActivity implements AsyncToS
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(DeptHeadRepCPActivity.this,DeptHeadHomeActivity.class);
+                i.putExtra("id",id);
                 startActivity(i);
                 finish();
             }

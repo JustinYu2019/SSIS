@@ -15,94 +15,81 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DeptHeadDelegateActivity extends AppCompatActivity {
+public class DeptHeadDelegateActivity extends AppCompatActivity implements AsyncToServer.IServerResponse{
 
     int id=0;
-Button btnLogout,btnStartDate,btnEndDate,btnApprove,btnReject;
-TextView textStartDate,textEndDate;
-EditText messageEditText;
+    Button btnLogout,btnStartDate,btnEndDate,btnApprove,btnReject;
+    TextView textStartDate,textEndDate;
+    EditText messageEditText;
     String selectedEmp;
-Spinner spinnerName;
-String date1,date2;
-int year,month,dayOfMonth;
+    Spinner spinnerName;
+    String date1,date2;
+    int year,month,dayOfMonth;
+    ArrayList<String> namelist=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dept_head_delegate);
         // initialize
+        initUI();
+    }
+    public void initUI(){
         id= getIntent().getIntExtra("id",0);
-        btnLogout=findViewById(R.id.LogoutDelegate);
-        btnStartDate=findViewById(R.id.startDateBtn);
-        btnEndDate=findViewById(R.id.endDateBtn);
-        textStartDate = findViewById(R.id.textStartDate);
-        textEndDate = findViewById(R.id.textEndDate);
-        spinnerName=findViewById(R.id.spinner1);//???
-        btnLogout=findViewById(R.id.LogoutDelegate);
-        btnApprove=findViewById(R.id.ApproveDele);
-        btnReject=findViewById(R.id.RejectDele);
+        authenticateUser(id);
+        btnLogout=(Button)findViewById(R.id.LogoutDelegate);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(DeptHeadDelegateActivity.this,MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+        btnStartDate=(Button) findViewById(R.id.startDateBtn);
+        btnEndDate=(Button) findViewById(R.id.endDateBtn);
+
+        btnApprove=(Button)findViewById(R.id.ApproveDele);
+        btnReject=(Button)findViewById(R.id.RejectDele);
+
+        textStartDate =(TextView) findViewById(R.id.textStartDate);
+        textEndDate = (TextView)findViewById(R.id.textEndDate);
+        spinnerName=(Spinner) findViewById(R.id.spinner1);
 
         btnApprove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // need check for null values, if it is null or not
-                   // after approve, need send notifications of delegate details to the user
+                String employeeName=selectedEmp;
+                String startDate=textStartDate.getText().toString();
+                String endDate=textEndDate.getText().toString();
+                if(startDate==null||endDate==null||employeeName==null||startDate.isEmpty()||endDate.isEmpty()||employeeName.isEmpty()){
+                    Toast.makeText(DeptHeadDelegateActivity.this,"There is a missing field",Toast.LENGTH_SHORT).show();
+                }else{
+                    messageEditText=(EditText)findViewById(R.id.delegateMessage);
+                    String message=messageEditText.getText().toString();
+                    createDelegation(employeeName,startDate,endDate,message);
+                }
             }
         });
         btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(DeptHeadDelegateActivity.this,DeptHeadHomeActivity.class);
+                i.putExtra("id",id);
                 startActivity(i);
+                finish();
             }
         });
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(DeptHeadDelegateActivity.this,MainActivity.class);
-                startActivity(i);
-            }
-        });
-        // Start of Spinner
-        final Spinner spinner=findViewById(R.id.spinner1);
-        // neeed the actual name from database.
-        final ArrayList<String> namelist=new ArrayList<>();
-        namelist.add("Justin");
-        namelist.add("Jenny");
-        namelist.add("Branny");
-        namelist.add("Canny");
-        namelist.add("Danny");
 
-        ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(DeptHeadDelegateActivity.this,
-                android.R.layout.simple_list_item_1,namelist);
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(myAdapter);
-
-
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // selected name are store in name variable
-                selectedEmp=parent.getItemAtPosition(position).toString();
-
-//                TextView v1=findViewById(R.id.textView);
-//                v1.setText(name);
-                Toast.makeText(parent.getContext(),"selected employee: "+selectedEmp,Toast.LENGTH_LONG).show();;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        // End of Spinner
-
+        findEmployeeNamesById(id);
         //Start of Calendar
         // this block of code is to iniitialize and set the date to current year month and day of calender
         Calendar calendar = Calendar.getInstance();
@@ -143,7 +130,7 @@ int year,month,dayOfMonth;
                             textStartDate.setText(date1);
                         } else {
                             Calendar c=Calendar.getInstance();
-                           // c.add(Calendar.YEAR,Calendar.YEAR+100);
+                            // c.add(Calendar.YEAR,Calendar.YEAR+100);
                             c.set(Calendar.YEAR,year);
                             c.set(Calendar.MONTH,month);
                             c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
@@ -159,5 +146,90 @@ int year,month,dayOfMonth;
         btnStartDate.setOnClickListener(showDatePicker);
         btnEndDate.setOnClickListener(showDatePicker);
         // End of Calendar
+
+    }
+    @Override
+    public void onServerResponse(JSONObject jsonObj){
+        if (jsonObj == null) {
+            Toast msg = Toast.makeText(DeptHeadDelegateActivity.this,"Server No response ", Toast.LENGTH_LONG);
+            msg.show();
+        }
+        try {
+            String context = (String) jsonObj.get("context");
+            if (context.compareTo("findEmployees") == 0) {
+                JSONArray array =jsonObj.getJSONArray("namelist");
+                for(int i=0;i<array.length();i++)
+                {
+                    JSONObject object= array.getJSONObject(i);
+                    namelist.add(object.getString("name"));
+                }
+                //spinner for rep
+
+
+                ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(DeptHeadDelegateActivity.this,
+                        android.R.layout.simple_list_item_1,namelist);
+                myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerName.setAdapter(myAdapter);
+                spinnerName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        // selected name are store in name variable
+                        selectedEmp=parent.getItemAtPosition(position).toString();
+
+//                TextView v1=findViewById(R.id.textView);
+//                v1.setText(name);
+                        Toast.makeText(parent.getContext(),"selected employee: "+selectedEmp,Toast.LENGTH_LONG).show();;
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+                // End of Spinner
+            }
+            if (context.compareTo("createDelegation") == 0) {
+                Toast.makeText(DeptHeadDelegateActivity.this,"Delegation record has been record successfully.",Toast.LENGTH_LONG).show();;
+                Intent i=new Intent(DeptHeadDelegateActivity.this,DeptHeadHomeActivity.class);
+                i.putExtra("id",id);
+                startActivity(i);
+                finish();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void authenticateUser(int id){
+        if(id==0){
+            Intent i=new Intent(DeptHeadDelegateActivity.this,MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+    }
+    public void findEmployeeNamesById(int id){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id",id);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(DeptHeadDelegateActivity.this, "findEmployees","http://10.0.2.2:59591/Home/FindEmployees",jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+
+    public void createDelegation(String employeeName,String startDate,String endDate,String message){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id",id);
+            jsonObj.put("employeeName",employeeName);
+            jsonObj.put("startDate",startDate);
+            jsonObj.put("endDate",endDate);
+            jsonObj.put("message",message);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(DeptHeadDelegateActivity.this, "createDelegation","http://10.0.2.2:59591/Home/CreateDelegation",jsonObj);
+        new AsyncToServer().execute(cmd);
     }
 }
