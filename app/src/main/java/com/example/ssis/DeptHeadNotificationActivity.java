@@ -11,44 +11,76 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
-public class DeptHeadNotificationActivity extends AppCompatActivity {
-Button Logout;
+public class DeptHeadNotificationActivity extends AppCompatActivity implements AsyncToServer.IServerResponse {
+    Button Logout;
+    int id;
+    ArrayList<Requisition> rList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dept_head_notification);
+
+
+        id= getIntent().getIntExtra("id",0);
+        authenticateUser(id);
         Logout=findViewById(R.id.LogoutNoti);
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(DeptHeadNotificationActivity.this,MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
         // table layout view --> may not be good--> use listview
         // list view of stationery requisition.
-        ListView rListView=findViewById(R.id.listViewNoti);
+        renderListView();
+    }
 
+    public void authenticateUser(int id){
+        if(id==0){
+            Intent i=new Intent(DeptHeadNotificationActivity.this,MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+    }
+    public void renderListView() {
 
-        // data received from web should already been sorted according to date..
-        // should use forward when arraylist of requision is sent
-        // use getters and setters to set data
-        String s=" has sent a notfication";
-        Requisition r1=new Requisition("James"+s,"2017-2-10");
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Command cmd = new Command(DeptHeadNotificationActivity.this, "findNotifications", "http://10.0.2.2:59591/Home/FindNotifications", jsonObj);
+        new AsyncToServer().execute(cmd);
+    }
+    @Override
+    public void onServerResponse(JSONObject jsonObj){
+        if (jsonObj == null) {
+            Toast msg = Toast.makeText(DeptHeadNotificationActivity.this,"Server No response ", Toast.LENGTH_LONG);
+            msg.show();
+        }
+        try {
+            String context = (String) jsonObj.get("context");
+            if (context.compareTo("findNotifications") == 0) {
+                JSONArray array = jsonObj.getJSONArray("notifications");
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject object = array.getJSONObject(i);
+                     rList.add(new Requisition(object.getString("message"),object.getString("date")));
+                }
+                ListView rListView=(ListView) findViewById(R.id.listViewNoti);
+                NotificationListAdapter adapter=new NotificationListAdapter(this,R.layout.adapter_notification,rList);
+                rListView.setAdapter(adapter);
+            }
+        }catch (Exception e) {
 
-        Requisition r2=new Requisition("Tom"+s,"2017-2-10");
-
-        Requisition r3=new Requisition("Jenny"+s,"2017-2-9");
-        final ArrayList<Requisition>rList=new ArrayList<>();
-        rList.add(r1);
-        rList.add(r2);
-        rList.add(r3);
-        NotificationListAdapter adapter=new NotificationListAdapter(this,R.layout.adapter_notification,rList);
-
-        rListView.setAdapter(adapter);
-
-
+            e.printStackTrace();
+        }
     }
 }

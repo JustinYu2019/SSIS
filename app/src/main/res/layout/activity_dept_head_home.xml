@@ -5,70 +5,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DeptHeadHomeActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="5"
+        >
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="3"
+        >
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:text="@string/Welcome"
+        android:textSize="36sp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_weight="2"
+    />
 
     <Button
         android:id="@+id/Logout1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="32dp"
         android:text="@string/Logout"
         android:background="@color/blueN1"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:layout_weight="1"
+    />
+    </LinearLayout>
     <Button
         android:id="@+id/viewNoti"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="196dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
         android:background="@color/orange"
         android:text="@string/ViewNotifications"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+         />
 
     <Button
         android:id="@+id/viewReq"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
         android:text="@string/ApproveRejectDele"
         android:background="@color/yellow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewNoti" />
+ />
 
     <Button
         android:id="@+id/delegate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:text="@string/Delegate"
         android:background="@color/green"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewReq" />
+    />
 
     <Button
         android:id="@+id/changeRepCP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginBottom="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:text="Change Rep and Collection Point"
-        android:background="@color/red"
-        app:layout_constraintBottom_toTopOf="@+id/viewNoti"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:background="@color/red"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

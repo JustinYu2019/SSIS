@@ -15,18 +15,25 @@ import java.util.ArrayList;
 
 public class DeptHeadReqActivity extends AppCompatActivity {
 Button Logout;
+int id=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dept_head_req);
-        Logout=findViewById(R.id.LogoutReq);
+        Logout=(Button)findViewById(R.id.LogoutReq);
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(DeptHeadReqActivity.this,MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
+
+        id= getIntent().getIntExtra("id",0);
+
+
+
         // list view of stationery requisition.
          ListView rListView=findViewById(R.id.listViewReq);
         Item i1=new Item();
@@ -62,5 +69,13 @@ Button Logout;
 
             }
         });
+    }
+
+    public void authenticateUser(int id){
+        if(id==0){
+            Intent i=new Intent(DeptHeadReqActivity.this,MainActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 }

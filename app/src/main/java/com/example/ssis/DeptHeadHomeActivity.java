@@ -12,15 +12,18 @@ public class DeptHeadHomeActivity extends AppCompatActivity {
     Button viewRequisition,viewNotification,delegate,Logout,changeRepCP;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        id= getIntent().getIntExtra("id",0);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dept_head_home);
 
-        viewRequisition=findViewById(R.id.viewReq);
-        viewNotification=findViewById(R.id.viewNoti);
-        delegate=findViewById(R.id.delegate);
-        changeRepCP=findViewById(R.id.changeRepCP);
-        Logout=findViewById(R.id.Logout1);
+        id= getIntent().getIntExtra("id",0);
+        authenticateUser(id);
+
+        viewRequisition=(Button) findViewById(R.id.viewReq);
+        viewNotification=(Button)findViewById(R.id.viewNoti);
+        delegate=(Button) findViewById(R.id.delegate);
+        changeRepCP=(Button) findViewById(R.id.changeRepCP);
+        Logout=(Button)findViewById(R.id.Logout1);
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +48,7 @@ public class DeptHeadHomeActivity extends AppCompatActivity {
                 Intent i=new Intent(DeptHeadHomeActivity.this,DeptHeadReqActivity.class);
                 i.putExtra("id",id);
                 startActivity(i);
-                finish();
+
             }
         });
         viewNotification.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +57,7 @@ public class DeptHeadHomeActivity extends AppCompatActivity {
                 Intent i=new Intent(DeptHeadHomeActivity.this,DeptHeadNotificationActivity.class);
                 i.putExtra("id",id);
                 startActivity(i);
-                finish();
+
             }
         });
         delegate.setOnClickListener(new View.OnClickListener() {
@@ -66,5 +69,13 @@ public class DeptHeadHomeActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void authenticateUser(int id){
+        if(id==0){
+            Intent i=new Intent(DeptHeadHomeActivity.this,MainActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 }

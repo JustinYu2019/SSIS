@@ -39,9 +39,12 @@ public class DeptHeadRepCPActivity extends AppCompatActivity implements AsyncToS
     Spinner spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        id= getIntent().getIntExtra("id",0);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dept_head_rep_cp);
+        id= getIntent().getIntExtra("id",0);
+        authenticateUser(id);
+
         Logout=(Button)findViewById(R.id.LogoutRepCP);
         cancel=(Button)findViewById(R.id.cancelRepCP);
         Logout.setOnClickListener(new View.OnClickListener() {
@@ -195,6 +198,14 @@ public class DeptHeadRepCPActivity extends AppCompatActivity implements AsyncToS
         }
         Command cmd = new Command(DeptHeadRepCPActivity.this, "findRepCP","http://10.0.2.2:59591/Home/FindCurrentRepAndCP",jsonObj);
         new AsyncToServer().execute(cmd);
+    }
+
+    public void authenticateUser(int id){
+        if(id==0){
+            Intent i=new Intent(DeptHeadRepCPActivity.this,MainActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 
 
