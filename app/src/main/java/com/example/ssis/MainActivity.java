@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements AsyncToServer.ISe
         username=(EditText)findViewById(R.id.username);
         password=(EditText)findViewById(R.id.password);
         login=(Button)findViewById(R.id.login);
+
+        //@Shutong
         login.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements AsyncToServer.ISe
             }
         });
     }
-
+    //@Shutong
     @Override
     public void onServerResponse(JSONObject jsonObj) {
         if (jsonObj == null) {

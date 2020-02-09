@@ -81,10 +81,12 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
     }
 
     public void initUI(){
-
+        //@Shutong
         id=getIntent().getIntExtra("id",0);
         authenticateUser(id);
         setCPColor(id);
+
+
         Button stationeryContact=findViewById(R.id.contactStationery);
         Button stationeryDisburse=findViewById(R.id.disburseStationery);
         Button managementContact=findViewById(R.id.contactManagement);
@@ -119,6 +121,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
         Logout.setOnClickListener(this);
 
     }
+    //@Shutong
     @Override
     public void onServerResponse(JSONObject jsonObj){
         if (jsonObj == null) {
@@ -213,7 +216,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
             e.printStackTrace();
         }
     }
-
+    //@Shutong
     public void authenticateUser(int id){
         if(id==0){
             i=new Intent(StoreClerkHomeActivity.this,MainActivity.class);
@@ -221,6 +224,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
             finish();
         }
     }
+    //@Shutong
     public void setCPColor(int id){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -233,7 +237,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
         Command cmd = new Command(StoreClerkHomeActivity.this, "setColor", "http://10.0.2.2:59591/Home/FindCPClerks", jsonObj);
         new AsyncToServer().execute(cmd);
     }
-
+    //@Shutong
     public void findCollectionPointAtStationery(){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -245,6 +249,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
         Command cmd = new Command(StoreClerkHomeActivity.this, "c1", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
         new AsyncToServer().execute(cmd);
     }
+    //@Shutong
     public void findCollectionPointAtStationeryD(){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -256,6 +261,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
         Command cmd = new Command(StoreClerkHomeActivity.this, "c2", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
         new AsyncToServer().execute(cmd);
     }
+    //@Shutong
     public void findCollectionPointAtManagement(){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -268,6 +274,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
         Command cmd = new Command(StoreClerkHomeActivity.this, "c1", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
         new AsyncToServer().execute(cmd);
     }
+    //@Shutong
     public void findCollectionPointAtManagementD(){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -280,7 +287,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
         Command cmd = new Command(StoreClerkHomeActivity.this, "c2", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
         new AsyncToServer().execute(cmd);
     }
-
+    //@Shutong
     public void findCollectionPointAtMedical(){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -292,6 +299,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
         Command cmd = new Command(StoreClerkHomeActivity.this, "c1", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
         new AsyncToServer().execute(cmd);
     }
+    //@Shutong
     public void findCollectionPointAtMedicalD(){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -303,7 +311,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
         Command cmd = new Command(StoreClerkHomeActivity.this, "c2", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
         new AsyncToServer().execute(cmd);
     }
-
+    //@Shutong
     public void findCollectionPointAtEngineering(){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -315,7 +323,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
         Command cmd = new Command(StoreClerkHomeActivity.this, "c1", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
         new AsyncToServer().execute(cmd);
     }
-
+    //@Shutong
     public void findCollectionPointAtEngineeringD(){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -327,7 +335,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
         Command cmd = new Command(StoreClerkHomeActivity.this, "c2", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
         new AsyncToServer().execute(cmd);
     }
-
+    //@Shutong
     public void findCollectionPointAtScience(){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -340,7 +348,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
         Command cmd = new Command(StoreClerkHomeActivity.this, "c1", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
         new AsyncToServer().execute(cmd);
     }
-
+    //@Shutong
     public void findCollectionPointAtScienceD(){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -353,7 +361,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
         Command cmd = new Command(StoreClerkHomeActivity.this, "c2", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
         new AsyncToServer().execute(cmd);
     }
-
+    //@Shutong
     public void findCollectionPointAtUniversityHospital(){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -366,7 +374,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
         new AsyncToServer().execute(cmd);
     }
 
-
+    //@Shutong
     public void findCollectionPointAtUniversityHospitalD(){
         JSONObject jsonObj = new JSONObject();
         try {

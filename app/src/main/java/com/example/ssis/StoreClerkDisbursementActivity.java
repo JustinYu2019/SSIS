@@ -42,7 +42,7 @@ public class StoreClerkDisbursementActivity extends AppCompatActivity implements
         });
 
 
-
+        //@Shutong
         Intent i=getIntent();
         id = i.getIntExtra("id",0);
         location=i.getStringExtra("location");
@@ -54,6 +54,7 @@ public class StoreClerkDisbursementActivity extends AppCompatActivity implements
             location=cP.getName();
             deptList=cP.getDepartmentList();
         }
+
         // List View and Adapter is working but for the different button clicks to pass intent seems fail.--> due to inappropriate initialisation
         // problem is solved.
         deptListView=(ListView) findViewById(R.id.deptListView);
@@ -78,6 +79,7 @@ public class StoreClerkDisbursementActivity extends AppCompatActivity implements
             }
         });
     }
+    //@Shutong
     public void authenticateUser(int id){
         if(id==0){
             intent=new Intent(StoreClerkDisbursementActivity.this,MainActivity.class);
@@ -85,7 +87,7 @@ public class StoreClerkDisbursementActivity extends AppCompatActivity implements
             finish();
         }
     }
-
+    //@Shutong
     public void setCP(){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -97,6 +99,7 @@ public class StoreClerkDisbursementActivity extends AppCompatActivity implements
         Command cmd = new Command(StoreClerkDisbursementActivity.this, "setCP", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
         new AsyncToServer().execute(cmd);
     }
+    //@Shutong
     @Override
     public void onServerResponse(JSONObject jsonObj){
         if (jsonObj == null) {

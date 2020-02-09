@@ -15,7 +15,7 @@ public class DeptHeadHomeActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dept_head_home);
-
+        //@Shutong
         id= getIntent().getIntExtra("id",0);
         authenticateUser(id);
 
@@ -71,6 +71,7 @@ public class DeptHeadHomeActivity extends AppCompatActivity {
         });
     }
 
+    //@Shutong
     public void authenticateUser(int id){
         if(id==0){
             Intent i=new Intent(DeptHeadHomeActivity.this,MainActivity.class);

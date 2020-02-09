@@ -25,9 +25,11 @@ public class DeptHeadNotificationActivity extends AppCompatActivity implements A
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dept_head_notification);
 
-
+        //@Shutong
         id= getIntent().getIntExtra("id",0);
         authenticateUser(id);
+
+
         Logout=findViewById(R.id.LogoutNoti);
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +43,7 @@ public class DeptHeadNotificationActivity extends AppCompatActivity implements A
         // list view of stationery requisition.
         renderListView();
     }
-
+    //@Shutong
     public void authenticateUser(int id){
         if(id==0){
             Intent i=new Intent(DeptHeadNotificationActivity.this,MainActivity.class);
@@ -49,6 +51,7 @@ public class DeptHeadNotificationActivity extends AppCompatActivity implements A
             finish();
         }
     }
+    //@Shutong
     public void renderListView() {
 
         JSONObject jsonObj = new JSONObject();
@@ -60,6 +63,7 @@ public class DeptHeadNotificationActivity extends AppCompatActivity implements A
         Command cmd = new Command(DeptHeadNotificationActivity.this, "findNotifications", "http://10.0.2.2:59591/Home/FindNotifications", jsonObj);
         new AsyncToServer().execute(cmd);
     }
+    //@Shutong
     @Override
     public void onServerResponse(JSONObject jsonObj){
         if (jsonObj == null) {

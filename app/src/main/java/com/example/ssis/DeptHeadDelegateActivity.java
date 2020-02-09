@@ -43,8 +43,11 @@ public class DeptHeadDelegateActivity extends AppCompatActivity implements Async
         initUI();
     }
     public void initUI(){
+
+        //@Shutong
         id= getIntent().getIntExtra("id",0);
         authenticateUser(id);
+
         btnLogout=(Button)findViewById(R.id.LogoutDelegate);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +67,7 @@ public class DeptHeadDelegateActivity extends AppCompatActivity implements Async
         textEndDate = (TextView)findViewById(R.id.textEndDate);
         spinnerName=(Spinner) findViewById(R.id.spinner1);
 
+        //@Shutong
         btnApprove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +93,7 @@ public class DeptHeadDelegateActivity extends AppCompatActivity implements Async
             }
         });
 
+        //@Shutong
         findEmployeeNamesById(id);
         //Start of Calendar
         // this block of code is to iniitialize and set the date to current year month and day of calender
@@ -148,6 +153,8 @@ public class DeptHeadDelegateActivity extends AppCompatActivity implements Async
         // End of Calendar
 
     }
+
+    //@Shutong
     @Override
     public void onServerResponse(JSONObject jsonObj){
         if (jsonObj == null) {
@@ -199,7 +206,7 @@ public class DeptHeadDelegateActivity extends AppCompatActivity implements Async
             e.printStackTrace();
         }
     }
-
+    //@Shutong
     public void authenticateUser(int id){
         if(id==0){
             Intent i=new Intent(DeptHeadDelegateActivity.this,MainActivity.class);
@@ -207,6 +214,7 @@ public class DeptHeadDelegateActivity extends AppCompatActivity implements Async
             finish();
         }
     }
+    //@Shutong
     public void findEmployeeNamesById(int id){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -217,7 +225,7 @@ public class DeptHeadDelegateActivity extends AppCompatActivity implements Async
         Command cmd = new Command(DeptHeadDelegateActivity.this, "findEmployees","http://10.0.2.2:59591/Home/FindEmployees",jsonObj);
         new AsyncToServer().execute(cmd);
     }
-
+    //@Shutong
     public void createDelegation(String employeeName,String startDate,String endDate,String message){
         JSONObject jsonObj = new JSONObject();
         try {

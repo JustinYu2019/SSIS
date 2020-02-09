@@ -15,6 +15,7 @@ import java.net.URLConnection;
 
 import javax.net.ssl.HttpsURLConnection;
 
+//@Shutong
 public class AsyncToServer extends AsyncTask<Command, Void, JSONObject> {
         IServerResponse callback;
         protected JSONObject doInBackground(Command... cmds) {

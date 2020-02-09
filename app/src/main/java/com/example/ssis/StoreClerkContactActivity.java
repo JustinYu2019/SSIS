@@ -32,10 +32,11 @@ Intent intent;
                 startActivity(i);
             }
         });
-
+        //@Shutong
         Intent i=getIntent();
         id=i.getIntExtra("id",0);
         authenticateUser(id);
+
         CollectionPoint cP=(CollectionPoint) i.getSerializableExtra("cp");
         location=cP.getName();
         TextView tLocation=(TextView)findViewById(R.id.location);
@@ -50,6 +51,7 @@ Intent intent;
         // put adapter into listview
         deptListView.setAdapter(adapter);
 
+        //@Shutong
         deptListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
@@ -62,7 +64,7 @@ Intent intent;
             }
         });
     }
-
+    //@Shutong
     public void authenticateUser(int id){
         if(id==0){
             intent=new Intent(StoreClerkContactActivity.this,MainActivity.class);

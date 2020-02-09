@@ -39,7 +39,7 @@ public class StoreClerkDisbursementDetailActivity extends AppCompatActivity impl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_clerk_disbursement_detail);
-
+        //@Shutong
         Intent i=getIntent();
         id=i.getIntExtra("id",0);
         authenticateUser(id);
@@ -134,6 +134,8 @@ public class StoreClerkDisbursementDetailActivity extends AppCompatActivity impl
         }
         dChartLayout.addView(dTableLayout);
     }
+
+    //@Shutong
     public void acknowledge(){
         reasonEdit=(EditText)findViewById(R.id.disbursementRemark);
         if(reqId==null||itemList.size()==0){
@@ -151,6 +153,7 @@ public class StoreClerkDisbursementDetailActivity extends AppCompatActivity impl
             new AsyncToServer().execute(cmd);
         }
     }
+    //@Shutong
     public void confirmQuantity() {
         if (reqId == null||itemList.size()==0){
             Toast.makeText(this, "No Disbursement available for you to update quantity.", Toast.LENGTH_LONG).show();
@@ -195,6 +198,8 @@ public class StoreClerkDisbursementDetailActivity extends AppCompatActivity impl
             new AsyncToServer().execute(cmd);
         }
     }
+
+    //@Shutong
     @Override
     public void onServerResponse(JSONObject jsonObj){
         if (jsonObj == null) {
@@ -244,6 +249,8 @@ public class StoreClerkDisbursementDetailActivity extends AppCompatActivity impl
             e.printStackTrace();
         }
     }
+
+    //@Shutong
     public void authenticateUser(int id){
         if(id==0){
             intent=new Intent(StoreClerkDisbursementDetailActivity.this,MainActivity.class);

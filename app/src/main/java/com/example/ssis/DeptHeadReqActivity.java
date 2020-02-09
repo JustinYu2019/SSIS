@@ -34,11 +34,14 @@ public class DeptHeadReqActivity extends AppCompatActivity implements AsyncToSer
                 finish();
             }
         });
+
+        //@Shutong
         userId= getIntent().getIntExtra("id",0);
         authenticateUser(userId);
         renderListView();
+        //end of @Shutong
     }
-
+    //@Shutong
     public void authenticateUser(int id){
         if(id==0){
             Intent i=new Intent(DeptHeadReqActivity.this,MainActivity.class);
@@ -46,7 +49,7 @@ public class DeptHeadReqActivity extends AppCompatActivity implements AsyncToSer
             finish();
         }
     }
-
+    //@Shutong
     public void renderListView() {
 
         JSONObject jsonObj = new JSONObject();
@@ -58,7 +61,7 @@ public class DeptHeadReqActivity extends AppCompatActivity implements AsyncToSer
         Command cmd = new Command(DeptHeadReqActivity.this, "findRequisitions", "http://10.0.2.2:59591/Home/FindRequisitions", jsonObj);
         new AsyncToServer().execute(cmd);
     }
-
+    //@Shutong
     @Override
     public void onServerResponse(JSONObject jsonObj){
         if (jsonObj == null) {

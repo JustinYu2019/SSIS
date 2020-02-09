@@ -69,9 +69,12 @@ public class DeptHeadRepCPActivity extends AppCompatActivity implements AsyncToS
         textSelectedRep=(TextView) findViewById(R.id.textRepSelected);
         textSelectedCP=(TextView)findViewById(R.id.textCPSelected);
 
+
         //put a list of Employees name into spinner
+        //@Shutong
         findEmployeeNamesById(id);
         //put current cp and rep
+        //@Shutong
         findCurrentRepAndCPById(id);
 //        String text = spinner.getSelectedItem().toString();
 //        TextView v1=findViewById(R.id.textView);
@@ -87,6 +90,8 @@ public class DeptHeadRepCPActivity extends AppCompatActivity implements AsyncToS
         radioGroup=(RadioGroup) findViewById(R.id.radioGroup);
 
         applyChangeRepC=(Button) findViewById(R.id.applyButton);
+
+        //@Shutong
         applyChangeRepC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +115,8 @@ public class DeptHeadRepCPActivity extends AppCompatActivity implements AsyncToS
         textSelectedCP.setText(""+selectedCollectionPoint);
         //Toast.makeText(this,"You have selected: "+radioButton.getText(),Toast.LENGTH_SHORT).show();
     }
+
+    //@Shutong
     @Override
     public void onServerResponse(JSONObject jsonObj) {
         if (jsonObj == null) {
@@ -162,6 +169,7 @@ public class DeptHeadRepCPActivity extends AppCompatActivity implements AsyncToS
         }
     }
 
+    //@Shutong
     public void findEmployeeNamesById(int id){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -173,6 +181,7 @@ public class DeptHeadRepCPActivity extends AppCompatActivity implements AsyncToS
         new AsyncToServer().execute(cmd);
     }
 
+    //@Shutong
     public void changeRepAndCollectionPoint(String selectedRep,String selectedCollectionPoint){
 
         if(selectedRep.equals(currentRep.getText())&&selectedCollectionPoint.equals(currentCP.getText())){
@@ -190,6 +199,7 @@ public class DeptHeadRepCPActivity extends AppCompatActivity implements AsyncToS
             new AsyncToServer().execute(cmd);
         }
     }
+    //@Shutong
     public void findCurrentRepAndCPById(int id){
         JSONObject jsonObj = new JSONObject();
         try {
@@ -200,7 +210,7 @@ public class DeptHeadRepCPActivity extends AppCompatActivity implements AsyncToS
         Command cmd = new Command(DeptHeadRepCPActivity.this, "findRepCP","http://10.0.2.2:59591/Home/FindCurrentRepAndCP",jsonObj);
         new AsyncToServer().execute(cmd);
     }
-
+    //@Shutong
     public void authenticateUser(int id){
         if(id==0){
             Intent i=new Intent(DeptHeadRepCPActivity.this,MainActivity.class);
