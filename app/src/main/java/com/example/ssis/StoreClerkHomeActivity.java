@@ -1,11 +1,14 @@
 package com.example.ssis;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -81,7 +84,7 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
 
         id=getIntent().getIntExtra("id",0);
         authenticateUser(id);
-
+        setCPColor(id);
         Button stationeryContact=findViewById(R.id.contactStationery);
         Button stationeryDisburse=findViewById(R.id.disburseStationery);
         Button managementContact=findViewById(R.id.contactManagement);
@@ -133,8 +136,8 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
                     ArrayList<Item> itemList=new ArrayList<>();
                     try{
                         JSONArray items=dept.getJSONArray("items");
-                        for(int j=0;j<items.length();i++){
-                            JSONObject item=items.getJSONObject(i);
+                        for(int j=0;j<items.length();j++){
+                            JSONObject item=items.getJSONObject(j);
                             String description=item.getString("description");
                             int unit=item.getInt("unit");
                             itemList.add(new Item(description,unit));
@@ -173,6 +176,38 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
                     startActivity(i);
                 }
             }
+            if(context.compareTo("setColor")==0){
+                ArrayList<Integer> layoutIndex = new ArrayList<>();
+                try{
+                    JSONArray locations=jsonObj.getJSONArray("locations");
+
+                    for (int i = 0; i < locations.length(); i++) {
+                        JSONObject collectionpoint = locations.getJSONObject(i);
+                        String cp = collectionpoint.getString("cp");
+                        if (cp.equals("Stationery Store")) {
+                            layoutIndex.add(0);
+                        } else if (cp.contains("Management")) {
+                            layoutIndex.add(1);
+                        } else if (cp.contains("Medical")) {
+                            layoutIndex.add(2);
+                        } else if (cp.contains("Engineering")) {
+                            layoutIndex.add(3);
+                        } else if (cp.contains("Science")) {
+                            layoutIndex.add(4);
+                        } else if(cp.contains("Hospital")){
+                            layoutIndex.add(5);
+                        }
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+                LinearLayout linearLayout=(LinearLayout)findViewById(R.id.bottomRow);
+                for(int k=0;k<layoutIndex.size();k++){
+                    LinearLayout subLayout=(LinearLayout) linearLayout.getChildAt(layoutIndex.get(k));
+                    subLayout.setBackgroundColor(ContextCompat.getColor(this,
+                            R.color.orange));
+                }
+            }
 
         }catch (Exception e){
             e.printStackTrace();
@@ -185,6 +220,18 @@ public class StoreClerkHomeActivity extends AppCompatActivity implements AsyncTo
             startActivity(i);
             finish();
         }
+    }
+    public void setCPColor(int id){
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("id", id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        Command cmd = new Command(StoreClerkHomeActivity.this, "setColor", "http://10.0.2.2:59591/Home/FindCPClerks", jsonObj);
+        new AsyncToServer().execute(cmd);
     }
 
     public void findCollectionPointAtStationery(){
