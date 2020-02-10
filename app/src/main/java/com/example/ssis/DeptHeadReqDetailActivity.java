@@ -142,6 +142,7 @@ public class DeptHeadReqDetailActivity extends AppCompatActivity implements Asyn
         try {
             jsonObj.put("requisitionId", requisitionId);
             jsonObj.put("remark",remarks);
+            jsonObj.put("id",id);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -155,6 +156,7 @@ public class DeptHeadReqDetailActivity extends AppCompatActivity implements Asyn
         try {
             jsonObj.put("requisitionId", requisitionID);
             jsonObj.put("remark",remarks);
+            jsonObj.put("id",id);
         } catch (Exception e) {
             e.printStackTrace();
         }
