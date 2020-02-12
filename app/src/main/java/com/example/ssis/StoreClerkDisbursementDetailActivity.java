@@ -216,10 +216,12 @@ public class StoreClerkDisbursementDetailActivity extends AppCompatActivity impl
                     }
                     else{
                         Toast.makeText(StoreClerkDisbursementDetailActivity.this,"You have acknowledge the disbursement",Toast.LENGTH_LONG).show();
-                        Intent i=new Intent(StoreClerkDisbursementDetailActivity.this,StoreClerkDisbursementActivity.class);
+                        Intent i=new Intent();
                         i.putExtra("id",id);
                         i.putExtra("location",collectionPoint);
-                        startActivity(i);
+                        setResult(28,i);
+                        finish();
+                        //startActivity(i);
                     }
                 }catch (JSONException e){
                     e.printStackTrace();
@@ -235,10 +237,12 @@ public class StoreClerkDisbursementDetailActivity extends AppCompatActivity impl
                     }
                     else{
                         Toast.makeText(StoreClerkDisbursementDetailActivity.this,"New quanities are updated",Toast.LENGTH_LONG).show();
-                        Intent i=new Intent(StoreClerkDisbursementDetailActivity.this,StoreClerkDisbursementActivity.class);
+                        Intent i=new Intent();
                         i.putExtra("id",id);
                         i.putExtra("location",collectionPoint);
-                        startActivity(i);
+                        setResult(28,i);
+                        finish();
+                        //startActivity(i);
                     }
                 }catch (JSONException e){
                     e.printStackTrace();

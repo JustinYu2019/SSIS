@@ -20,7 +20,7 @@ public class StoreClerkDisbursementActivity extends AppCompatActivity implements
     Button Logout;
     int id;
     String location;
-    ArrayList<Department> deptList=new ArrayList<>();
+    ArrayList<Department> deptList = new ArrayList<>();
     Department d;
     Intent intent;
     ListView deptListView;
@@ -31,11 +31,11 @@ public class StoreClerkDisbursementActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_clerk_disbursment);
 
-        Logout=findViewById(R.id.LogoutDisbursement);
+        Logout = findViewById(R.id.LogoutDisbursement);
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(StoreClerkDisbursementActivity.this,MainActivity.class);
+                Intent i = new Intent(StoreClerkDisbursementActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -43,23 +43,23 @@ public class StoreClerkDisbursementActivity extends AppCompatActivity implements
 
 
         //@Shutong
-        Intent i=getIntent();
-        id = i.getIntExtra("id",0);
-        location=i.getStringExtra("location");
+        Intent i = getIntent();
+        id = i.getIntExtra("id", 0);
+        location = i.getStringExtra("location");
         authenticateUser(id);
-        cP=(CollectionPoint) i.getSerializableExtra("cp");
-        if(cP==null){
+        cP = (CollectionPoint) i.getSerializableExtra("cp");
+        if (cP == null) {
             setCP();
-        }else{
-            location=cP.getName();
-            deptList=cP.getDepartmentList();
+        } else {
+            location = cP.getName();
+            deptList = cP.getDepartmentList();
         }
 
         // List View and Adapter is working but for the different button clicks to pass intent seems fail.--> due to inappropriate initialisation
         // problem is solved.
-        deptListView=(ListView) findViewById(R.id.deptListView);
+        deptListView = (ListView) findViewById(R.id.deptListView);
 
-        DepartmentListAdapter adapter=new DepartmentListAdapter(this,R.layout.adapter_departmentlist,deptList);
+        DepartmentListAdapter adapter = new DepartmentListAdapter(this, R.layout.adapter_departmentlist, deptList);
 
         // put adapter into listview
         deptListView.setAdapter(adapter);
@@ -67,48 +67,51 @@ public class StoreClerkDisbursementActivity extends AppCompatActivity implements
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 
-                intent =new Intent(StoreClerkDisbursementActivity.this,StoreClerkDisbursementDetailActivity.class);
-                d=deptList.get(pos);
-                intent.putExtra("Department",d);
-                intent.putExtra("location",location);
-                intent.putExtra("id",StoreClerkDisbursementActivity.this.id);
-                Toast.makeText(StoreClerkDisbursementActivity.this,"Requested by: "+d.getDeptName(),Toast.LENGTH_LONG ).show();
-                startActivity(intent);
+                intent = new Intent(StoreClerkDisbursementActivity.this, StoreClerkDisbursementDetailActivity.class);
+                d = deptList.get(pos);
+                intent.putExtra("Department", d);
+                intent.putExtra("location", location);
+                intent.putExtra("id", StoreClerkDisbursementActivity.this.id);
+                Toast.makeText(StoreClerkDisbursementActivity.this, "Requested by: " + d.getDeptName(), Toast.LENGTH_LONG).show();
+                startActivityForResult(intent, 82);//request code 82
 
 
             }
         });
     }
+
     //@Shutong
-    public void authenticateUser(int id){
-        if(id==0){
-            intent=new Intent(StoreClerkDisbursementActivity.this,MainActivity.class);
+    public void authenticateUser(int id) {
+        if (id == 0) {
+            intent = new Intent(StoreClerkDisbursementActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }
     }
+
     //@Shutong
-    public void setCP(){
+    public void setCP() {
         JSONObject jsonObj = new JSONObject();
         try {
             jsonObj.put("id", id);
-            jsonObj.put("location",location);
+            jsonObj.put("location", location);
         } catch (Exception e) {
             e.printStackTrace();
         }
         Command cmd = new Command(StoreClerkDisbursementActivity.this, "setCP", "http://10.0.2.2:59591/Home/FindCollectionPoint", jsonObj);
         new AsyncToServer().execute(cmd);
     }
+
     //@Shutong
     @Override
-    public void onServerResponse(JSONObject jsonObj){
+    public void onServerResponse(JSONObject jsonObj) {
         if (jsonObj == null) {
-            Toast msg = Toast.makeText(StoreClerkDisbursementActivity.this,"Server No response ", Toast.LENGTH_LONG);
+            Toast msg = Toast.makeText(StoreClerkDisbursementActivity.this, "Server No response ", Toast.LENGTH_LONG);
             msg.show();
         }
         try {
             String context = (String) jsonObj.get("context");
-            if (context.compareTo("setCP")==0) {
+            if (context.compareTo("setCP") == 0) {
                 String name = jsonObj.getString("location");
                 JSONArray departments = jsonObj.getJSONArray("departments");
                 ArrayList<Department> departmentList = new ArrayList<>();
@@ -116,7 +119,8 @@ public class StoreClerkDisbursementActivity extends AppCompatActivity implements
                     JSONObject dept = departments.getJSONObject(i);
                     ArrayList<Item> itemList = new ArrayList<>();
                     try {
-                        if(dept.getJSONObject("items")!=null){
+
+                        if (dept.getJSONArray("items") != null) {
                             JSONArray items = dept.getJSONArray("items");
 
                             for (int j = 0; j < items.length(); j++) {
@@ -125,12 +129,25 @@ public class StoreClerkDisbursementActivity extends AppCompatActivity implements
                                 int unit = item.getInt("unit");
                                 itemList.add(new Item(description, unit));
                             }
-                        }else{
-                            itemList=new ArrayList<>();
+                        } else {
+                            itemList = new ArrayList<>();
                         }
 
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        try {
+                            if (!dept.get("items").toString().equals("null")) {
+                                JSONObject items = dept.getJSONObject("items");
+                                String description = items.getString("description");
+                                int unit = items.getInt("unit");
+                                itemList.add(new Item(description, unit));
+                            }
+                             else{
+                                 itemList = new ArrayList<>();
+                             }
+                         }
+                        catch(JSONException ee){
+                            ee.printStackTrace();
+                        }
                     }
 
                     String deptName = dept.getString("deptName");
@@ -147,12 +164,24 @@ public class StoreClerkDisbursementActivity extends AppCompatActivity implements
                     cP = new CollectionPoint();
                     cP.setName(name);
                     cP.setDepartmentList(departmentList);
-                    location=cP.getName();
-                    deptList=cP.getDepartmentList();
+                    location = cP.getName();
+                    deptList = cP.getDepartmentList();
                 }
             }
-        }catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent i) {
+        if (requestCode == 82) {
+            if (resultCode == 28) {
+                id = i.getIntExtra("id", 0);
+                location = i.getStringExtra("location");
+                setCP();
+
+            }
         }
     }
 }
