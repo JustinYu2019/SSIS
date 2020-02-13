@@ -27,8 +27,8 @@ public class DeptHeadRepCPActivity extends AppCompatActivity implements AsyncToS
     RadioButton radioButton;
     Button applyChangeRepC,cancel,Logout;
     int radioId;
-    String selectedCollectionPoint;
-    String selectedRep;
+    String selectedCollectionPoint="";
+    String selectedRep="";
     Calendar calendar;
     TextView textSelectedRep;
     TextView textSelectedCP;

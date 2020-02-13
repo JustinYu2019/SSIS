@@ -39,7 +39,7 @@ public class DeptHeadHomeActivity extends AppCompatActivity {
                 Intent i=new Intent(DeptHeadHomeActivity.this,DeptHeadRepCPActivity.class);
                 i.putExtra("id",id);
                 startActivity(i);
-                finish();
+
             }
         });
         viewRequisition.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +66,6 @@ public class DeptHeadHomeActivity extends AppCompatActivity {
                 Intent i=new Intent(DeptHeadHomeActivity.this,DeptHeadDelegateActivity.class);
                 i.putExtra("id",id);
                 startActivity(i);
-                finish();
             }
         });
     }
